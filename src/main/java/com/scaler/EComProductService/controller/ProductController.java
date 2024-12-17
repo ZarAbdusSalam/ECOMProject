@@ -1,13 +1,13 @@
 package com.scaler.EComProductService.controller;
 
+import com.scaler.EComProductService.dto.ProductListResponseDTO;
+import com.scaler.EComProductService.dto.ProductRequestDTO;
 import com.scaler.EComProductService.dto.ProductResponseDTO;
 import com.scaler.EComProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +47,8 @@ public class ProductController {
         return ResponseEntity.ok(products);
      */
 
+//   Code to Get Product Using Id - FakeStoreAPI - REST API 2
+    /*
     @Autowired
     @Qualifier("FakeStoreProductService")
     private ProductService productService;
@@ -56,4 +58,59 @@ public class ProductController {
         ProductResponseDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }
+    */
+
+    private final ProductService productService;
+
+    @Autowired
+    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/products/{id}")
+    public ResponseEntity getProductFromId(@PathVariable("id") int id){
+        ProductResponseDTO productResponseDTO = productService.getProductById(id);
+        return ResponseEntity.ok(productResponseDTO);
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity getAllProducts(){
+        ProductListResponseDTO productListResponseDTO = productService.getAllProducts();
+        return ResponseEntity.ok(productListResponseDTO);
+    }
+
+
+    @PostMapping("/products")
+    public ResponseEntity addNewProduct(@RequestBody ProductRequestDTO productRequestDTO){
+        ProductResponseDTO productResponseDTO = productService.createProduct(productRequestDTO);
+        return ResponseEntity.ok(productResponseDTO);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity deleteProductById(@PathVariable("id") int id){
+        boolean productResponseDTO = productService.deleteProduct(id);
+        return ResponseEntity.ok("Abdus");
+    }
+
+    @PutMapping("/products/{id}")
+    public ResponseEntity updateByProductId(@PathVariable int id, @RequestBody ProductRequestDTO productRequestDTO){
+        ProductResponseDTO productResponseDTO = productService.updateProduct(id, productRequestDTO);
+        return ResponseEntity.ok(productResponseDTO);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -1,16 +1,18 @@
 package com.scaler.EComProductService.service;
 
+import com.scaler.EComProductService.dto.ProductListResponseDTO;
+import com.scaler.EComProductService.dto.ProductRequestDTO;
 import com.scaler.EComProductService.dto.ProductResponseDTO;
 import com.scaler.EComProductService.model.Product;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service("ProductService")
 public class ProductServiceImpl implements ProductService{
     @Override
-    public List<Product> getAllProducts() {
-        return List.of();
+    public ProductListResponseDTO getAllProducts() {
+//        ProductListResponseDTO productListResponseDTO = new ProductListResponseDTO();
+//        return productListResponseDTO;
+        return null;
     }
 
     @Override
@@ -19,17 +21,17 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public ProductResponseDTO createProduct(ProductRequestDTO product) {
         return null;
     }
 
     @Override
-    public Product deleteProduct(int id) {
-        return null;
+    public boolean deleteProduct(int id) {
+        return false;
     }
 
     @Override
-    public Product updateProduct(int id, Product updatedProduct) {
+    public ProductResponseDTO updateProduct(int id, ProductRequestDTO updatedProduct) {
         return null;
     }
 }
