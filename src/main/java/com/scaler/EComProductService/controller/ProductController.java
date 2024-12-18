@@ -63,7 +63,8 @@ public class ProductController {
     private final ProductService productService;
 
     @Autowired
-    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService) {
+//    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService) {
+    public ProductController(@Qualifier("FakeStoreProductServiceClient") ProductService productService) {
         this.productService = productService;
     }
 
@@ -89,7 +90,7 @@ public class ProductController {
     @DeleteMapping("/products/{id}")
     public ResponseEntity deleteProductById(@PathVariable("id") int id){
         boolean productResponseDTO = productService.deleteProduct(id);
-        return ResponseEntity.ok("Abdus");
+        return ResponseEntity.ok(productResponseDTO);
     }
 
     @PutMapping("/products/{id}")
