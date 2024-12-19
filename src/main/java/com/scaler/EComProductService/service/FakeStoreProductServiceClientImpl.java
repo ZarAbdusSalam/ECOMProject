@@ -7,6 +7,8 @@ import com.scaler.EComProductService.exception.ProductNotFoundException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.scaler.EComProductService.mapper.ProductMapper.productRequestToFakeStoreProductRequest;
 import static com.scaler.EComProductService.mapper.ProductMapper.productResponseToFakeStoreProductResponse;
 import static com.scaler.EComProductService.mapper.ProductMapper.fakeStoreProductRequestToProductRequest;
@@ -27,7 +29,12 @@ public class FakeStoreProductServiceClientImpl implements ProductService{
 
     @Override
     public ProductListResponseDTO getAllProducts() {
-        return null;
+        List<FakeStoreProductResponseDTO> fakeStoreProductResponseList = fakeStoreAPIClient.getAllProducts();
+        ProductListResponseDTO productListResponseDTO = new ProductListResponseDTO();
+        for(FakeStoreProductResponseDTO fakeStoreProductResponseDTO : fakeStoreProductResponseList){
+            productListResponseDTO.getProductResponseDTOList().add(fakeStoreProductResponseToProductResponse(fakeStoreProductResponseDTO));
+        }
+        return productListResponseDTO;
     }
 
     @Override

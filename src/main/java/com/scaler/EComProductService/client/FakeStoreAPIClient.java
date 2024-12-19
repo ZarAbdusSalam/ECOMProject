@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Component
 public class FakeStoreAPIClient {
 
@@ -32,5 +34,12 @@ public class FakeStoreAPIClient {
         ResponseEntity<FakeStoreProductResponseDTO> productResponse = restTemplate.getForEntity(getProductByIdURL,FakeStoreProductResponseDTO.class);
         System.out.println(productResponse.getBody());
         return productResponse.getBody();
+    }
+
+    public List<FakeStoreProductResponseDTO> getAllProducts(){
+        String getAllProductsURL = "https://fakestoreapi.com/products";
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductResponseDTO[]> productResponseArray = restTemplate.getForEntity(getAllProductsURL,FakeStoreProductResponseDTO[].class);
+        return List.of(productResponseArray.getBody());
     }
 }
