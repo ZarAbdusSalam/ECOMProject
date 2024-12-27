@@ -55,11 +55,15 @@ public class FakeStoreProductServiceClientImpl implements ProductService{
 
     @Override
     public boolean deleteProduct(int id) {
-        return false;
+        return fakeStoreAPIClient.deleteProduct(id);
     }
 
     @Override
     public ProductResponseDTO updateProduct(int id, ProductRequestDTO updatedProduct) {
-        return null;
+
+        FakeStoreProductRequestDTO fakeStoreProductRequestDTO = productRequestToFakeStoreProductRequest(updatedProduct);
+        FakeStoreProductResponseDTO fakeStoreProductResponseDTO = fakeStoreAPIClient.updateProduct(id, fakeStoreProductRequestDTO);
+        return fakeStoreProductResponseToProductResponse(fakeStoreProductResponseDTO);
+
     }
 }

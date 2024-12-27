@@ -42,4 +42,19 @@ public class FakeStoreAPIClient {
         ResponseEntity<FakeStoreProductResponseDTO[]> productResponseArray = restTemplate.getForEntity(getAllProductsURL,FakeStoreProductResponseDTO[].class);
         return List.of(productResponseArray.getBody());
     }
+
+    public boolean deleteProduct(int id) {
+
+        String deleteProductByIdURL = "https://fakestoreapi.com/products/" + id;
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        restTemplate.delete(deleteProductByIdURL);
+        return true;
+    }
+
+    public FakeStoreProductResponseDTO updateProduct(int id, FakeStoreProductRequestDTO updatedProduct) {
+        String updateProductByIdURL = "https://fakestoreapi.com/products/" + id;
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        FakeStoreProductResponseDTO productResponse = restTemplate.patchForObject(updateProductByIdURL,updatedProduct,FakeStoreProductResponseDTO.class);
+        return productResponse;
+    }
 }
