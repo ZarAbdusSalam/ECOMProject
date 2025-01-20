@@ -4,8 +4,8 @@ package com.scaler.EComProductService.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class FakeStoreProductRequestDTO {
 
     private String title;
